@@ -14,7 +14,7 @@ import br.com.beertech.fusion.repository.UserRepository;
 import br.com.beertech.fusion.service.CurrentAccountService;
 import br.com.beertech.fusion.service.security.jwt.JwtUtils;
 import br.com.beertech.fusion.service.security.services.UserDetailsImpl;
-import br.com.beertech.fusion.util.ApiInfo;
+import br.com.beertech.fusion.util.SwaggerDoc;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -62,7 +62,7 @@ public class AuthController {
 	private CurrentAccountService currentAccountService;
 
 	@PostMapping("/signin")
-	@ApiOperation(value =  ApiInfo.signinTitle,  notes = ApiInfo.signinNotes)
+	@ApiOperation(value =  SwaggerDoc.signinTitle,  notes = SwaggerDoc.signinNotes)
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
 		Authentication authentication = authenticationManager.authenticate(
@@ -84,7 +84,7 @@ public class AuthController {
 	}
 
 	@PostMapping("/signup")
-	@ApiOperation(value =  ApiInfo.signupTitle,  notes = ApiInfo.signupNotes)
+	@ApiOperation(value =  SwaggerDoc.signupTitle,  notes = SwaggerDoc.signupNotes)
 	public CompletableFuture<ResponseEntity> registerUserAccount(@Valid @RequestBody SignupRequest signUpRequest)  throws ExecutionException, InterruptedException {
 
 		CompletableFuture<ResponseEntity> future = new CompletableFuture<>();

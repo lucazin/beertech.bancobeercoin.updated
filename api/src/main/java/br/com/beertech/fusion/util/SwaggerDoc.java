@@ -1,6 +1,6 @@
 package br.com.beertech.fusion.util;
 
-public class ApiInfo {
+public class SwaggerDoc {
 
     public static final String getaccountsTitle = "List all bank accounts.";
     public static final String getaccountsNotes = "List all bank accounts for all customers registered in application. No parameters are needed.";

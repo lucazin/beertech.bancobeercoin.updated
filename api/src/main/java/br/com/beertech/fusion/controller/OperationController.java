@@ -1,19 +1,16 @@
 package br.com.beertech.fusion.controller;
 
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.NO_CONTENT;
 import static org.springframework.http.HttpStatus.OK;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 import br.com.beertech.fusion.controller.dto.ReportDTO;
 import br.com.beertech.fusion.domain.CurrentAccount;
 import br.com.beertech.fusion.service.CurrentAccountService;
-import br.com.beertech.fusion.util.ApiInfo;
+import br.com.beertech.fusion.util.SwaggerDoc;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +26,6 @@ import br.com.beertech.fusion.controller.dto.OperationDTO;
 import br.com.beertech.fusion.controller.dto.TransferDTO;
 import br.com.beertech.fusion.domain.Balance;
 import br.com.beertech.fusion.domain.Operation;
-import br.com.beertech.fusion.exception.FusionException;
 import br.com.beertech.fusion.service.BalanceService;
 import br.com.beertech.fusion.service.OperationService;
 import br.com.beertech.fusion.service.PublishTransaction;
@@ -57,7 +53,7 @@ public class OperationController {
 
     //region Transactions
     @GetMapping("/transaction")
-    @ApiOperation(value =  ApiInfo.transactionTitle,  notes = ApiInfo.transactionNotes)
+    @ApiOperation(value =  SwaggerDoc.transactionTitle,  notes = SwaggerDoc.transactionNotes)
     public CompletableFuture<List<Operation>> listOperations() throws ExecutionException, InterruptedException {
 
         CompletableFuture<List<Operation>> future = new CompletableFuture<>();
@@ -77,7 +73,7 @@ public class OperationController {
     }
 
     @GetMapping("/transaction/{hash}")
-    @ApiOperation(value =  ApiInfo.transactionHashTitle,  notes = ApiInfo.transactionHashNotes)
+    @ApiOperation(value =  SwaggerDoc.transactionHashTitle,  notes = SwaggerDoc.transactionHashNotes)
     public CompletableFuture<List<Operation>> listOperationsHash(@PathVariable String hash) throws ExecutionException, InterruptedException {
 
         CompletableFuture<List<Operation>> future = new CompletableFuture<>();
@@ -97,7 +93,7 @@ public class OperationController {
     }
 
     @GetMapping("/transaction/{agency}/{accountnumber}")
-    @ApiOperation(value =  ApiInfo.transactionAccountNumberTitle,  notes = ApiInfo.transactionAccountNumberNotes)
+    @ApiOperation(value =  SwaggerDoc.transactionAccountNumberTitle,  notes = SwaggerDoc.transactionAccountNumberNotes)
     public CompletableFuture<List<Operation>> listOperationsAgencyAccount(@PathVariable String agency,@PathVariable String accountnumber) throws ExecutionException, InterruptedException {
 
         CompletableFuture<List<Operation>> future = new CompletableFuture<>();
@@ -120,7 +116,7 @@ public class OperationController {
 
     //region Balance
     @GetMapping("/totalbalance")
-    @ApiOperation(value =  ApiInfo.totalbalanceTitle,  notes = ApiInfo.totalbalanceNotes)
+    @ApiOperation(value =  SwaggerDoc.totalbalanceTitle,  notes = SwaggerDoc.totalbalanceNotes)
     public CompletableFuture<ResponseEntity> listbalance() throws ExecutionException, InterruptedException {
 
         CompletableFuture<ResponseEntity> future = new CompletableFuture<>();
@@ -142,7 +138,7 @@ public class OperationController {
     }
 
     @GetMapping("/accountbalance/{hash}")
-    @ApiOperation(value =  ApiInfo.accountbalanceHashTitle,  notes = ApiInfo.accountbalanceHashNotes)
+    @ApiOperation(value =  SwaggerDoc.accountbalanceHashTitle,  notes = SwaggerDoc.accountbalanceHashNotes)
     public CompletableFuture<ResponseEntity> listbalanceByHash(@PathVariable String hash) throws ExecutionException, InterruptedException {
 
         CompletableFuture<ResponseEntity> future = new CompletableFuture<>();
@@ -164,7 +160,7 @@ public class OperationController {
     }
 
     @GetMapping("/accountbalance/{agency}/{accountnumber}")
-    @ApiOperation(value =  ApiInfo.accountbalanceAgencyAccountTitle,  notes = ApiInfo.accountbalanceAgencyAccountNotes)
+    @ApiOperation(value =  SwaggerDoc.accountbalanceAgencyAccountTitle,  notes = SwaggerDoc.accountbalanceAgencyAccountNotes)
     public CompletableFuture<ResponseEntity> listbalanceByHash(@PathVariable String agency,@PathVariable String accountnumber) throws ExecutionException, InterruptedException {
 
         CompletableFuture<ResponseEntity> future = new CompletableFuture<>();
@@ -190,7 +186,7 @@ public class OperationController {
     //region Repots
 
     @GetMapping("/bankstatement")
-    @ApiOperation(value =  ApiInfo.bankstatementTitle,  notes = ApiInfo.bankstatementNotes)
+    @ApiOperation(value =  SwaggerDoc.bankstatementTitle,  notes = SwaggerDoc.bankstatementNotes)
     public CompletableFuture<List<Operation>> getReport(@Valid @RequestBody ReportDTO reportDTO) throws ExecutionException, InterruptedException {
 
         CompletableFuture<List<Operation>> future = new CompletableFuture<>();
@@ -215,7 +211,7 @@ public class OperationController {
 
     //Put transfer request in queue for rabbitmq process and send to rest for save.
     @PostMapping("/transfers/queue")
-    @ApiOperation(value =  ApiInfo.transfersQueueTitle,  notes = ApiInfo.transfersQueueNotes)
+    @ApiOperation(value =  SwaggerDoc.transfersQueueTitle,  notes = SwaggerDoc.transfersQueueNotes)
     @PreAuthorize("hasRole('MODERATOR')")
     public CompletableFuture<ResponseEntity> queueTransfer(@RequestBody TransferDTO transferDTO) throws ExecutionException, InterruptedException {
 
@@ -243,7 +239,7 @@ public class OperationController {
     //region Operation
 
     @PostMapping("/operation/queue")
-    @ApiOperation(value =  ApiInfo.operationQueueTitle,  notes = ApiInfo.operationQueueNotes)
+    @ApiOperation(value =  SwaggerDoc.operationQueueTitle,  notes = SwaggerDoc.operationQueueNotes)
     @PreAuthorize("hasRole('MODERATOR')")
     public CompletableFuture<ResponseEntity> queueOperations(@RequestBody OperationDTO operationDTO) throws ExecutionException, InterruptedException {
 

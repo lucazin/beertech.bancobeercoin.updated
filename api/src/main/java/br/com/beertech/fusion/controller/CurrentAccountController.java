@@ -1,6 +1,5 @@
 package br.com.beertech.fusion.controller;
 
-import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 
 import java.util.List;
@@ -9,15 +8,10 @@ import java.util.concurrent.ExecutionException;
 import java.util.function.Supplier;
 
 import br.com.beertech.fusion.controller.dto.AccountInfoDTO;
-import br.com.beertech.fusion.controller.dto.OperationDTO;
-import br.com.beertech.fusion.domain.Balance;
-import br.com.beertech.fusion.domain.Operation;
-import br.com.beertech.fusion.util.ApiInfo;
+import br.com.beertech.fusion.util.SwaggerDoc;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import br.com.beertech.fusion.domain.CurrentAccount;
@@ -34,14 +28,14 @@ public class CurrentAccountController {
 	@Autowired
 	private CurrentAccountService currentAccountService;
 
-    @ApiOperation(value =  ApiInfo.getaccountsTitle,  notes = ApiInfo.getaccountsNotes)
+    @ApiOperation(value =  SwaggerDoc.getaccountsTitle,  notes = SwaggerDoc.getaccountsNotes)
 	@GetMapping("/getaccounts")
     public List<CurrentAccount> listAccounts() {
         return currentAccountService.listAccounts();
     }
 
     @GetMapping("/getaccountHash")
-    @ApiOperation(value =  ApiInfo.getaccountHashTitle,  notes = ApiInfo.getaccountHashNotes)
+    @ApiOperation(value =  SwaggerDoc.getaccountHashTitle,  notes = SwaggerDoc.getaccountHashNotes)
     public CompletableFuture<ResponseEntity> listAccountByHash(@Valid @RequestBody AccountInfoDTO accountinfo) throws ExecutionException, InterruptedException {
 
         CompletableFuture<ResponseEntity> future = new CompletableFuture<>();
@@ -63,7 +57,7 @@ public class CurrentAccountController {
 
 
     @GetMapping("/getaccountId")
-    @ApiOperation(value =  ApiInfo.getaccountIdTitle,  notes = ApiInfo.getaccountIdNotes)
+    @ApiOperation(value =  SwaggerDoc.getaccountIdTitle,  notes = SwaggerDoc.getaccountIdNotes)
     public CompletableFuture<ResponseEntity> listAccountById(@Valid @RequestBody AccountInfoDTO accountinfo) throws ExecutionException, InterruptedException {
 
         CompletableFuture<ResponseEntity> future = new CompletableFuture<>();
