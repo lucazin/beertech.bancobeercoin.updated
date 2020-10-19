@@ -53,81 +53,88 @@ public class OperationServiceImpl implements OperationService {
 		{
 			CurrentAccount PersonalAccount = currentAccountService.findByAgencyAccountNumber(operation.getOperationAgency(),operation.getOperationAccountNumber());
 
-			if (PersonalAccount.getApprovedLimit() > 0)
+			if(PersonalAccount != null)
 			{
+				if (PersonalAccount.getApprovedLimit() > 0)
+				{
 
-				if(PersonalAccount.getBalance() == 0 && PersonalAccount.getUsedLimit() == PersonalAccount.getApprovedLimit())
-				{
-					//Limit Reached
-					PersonalAccount.setBalance(0.0);
-					PersonalAccount.setUsedLimit(PersonalAccount.getUsedLimit() - operation.getOperationValue());
-					AccountRepository.save(PersonalAccount);
-					operationRepository.save(operation);
-				}
-				else if(PersonalAccount.getBalance() == 0 &&
-						(PersonalAccount.getUsedLimit() < PersonalAccount.getApprovedLimit() && PersonalAccount.getUsedLimit() > 0))
-				{
-					PersonalAccount.setBalance(0.0);
-					PersonalAccount.setUsedLimit(PersonalAccount.getUsedLimit() - operation.getOperationValue());
-					AccountRepository.save(PersonalAccount);
-					operationRepository.save(operation);
-				}
-				else if(PersonalAccount.getBalance() == 0 && PersonalAccount.getUsedLimit() <= 0)
-				{
-					PersonalAccount.setBalance(PersonalAccount.getBalance() + operation.getOperationValue());
-					PersonalAccount.setUsedLimit(0.0);
-					AccountRepository.save(PersonalAccount);
-					operationRepository.save(operation);
-				}
-				else if(PersonalAccount.getBalance() > 0 && PersonalAccount.getUsedLimit() == 0)
-				{
-					PersonalAccount.setBalance(PersonalAccount.getBalance() + operation.getOperationValue());
-					PersonalAccount.setUsedLimit(0.0);
-					AccountRepository.save(PersonalAccount);
-					operationRepository.save(operation);
-				}
-			}
-			else
-			{
-				PersonalAccount.setBalance(PersonalAccount.getBalance() + operation.getOperationValue());
-				AccountRepository.save(PersonalAccount);
-				operationRepository.save(operation);
-			}
-		}
-		else if(operation.getOperationType() == OperationType.WITHDRAW.ID)
-		{
-			CurrentAccount PersonalAccount = currentAccountService.findByAgencyAccountNumber(operation.getOperationAgency(),operation.getOperationAccountNumber());
-
-			if(PersonalAccount.getBalance() == 0)
-			{
-				if(PersonalAccount.getApprovedLimit() > 0)
-				{
-					PersonalAccount.setUsedLimit(PersonalAccount.getUsedLimit()+operation.getOperationValue());
-					AccountRepository.save(PersonalAccount);
-					operationRepository.save(operation);
-				}
-			}
-			else
-			{
-				if(PersonalAccount.getApprovedLimit() > 0)
-				{
-					if(PersonalAccount.getApprovedLimit() >= (PersonalAccount.getBalance() - operation.getOperationValue()))
+					if(PersonalAccount.getBalance() == 0 && PersonalAccount.getUsedLimit() == PersonalAccount.getApprovedLimit())
 					{
-						PersonalAccount.setBalance(PersonalAccount.getBalance() - operation.getOperationValue());
+						//Limit Reached
+						PersonalAccount.setBalance(0.0);
+						PersonalAccount.setUsedLimit(PersonalAccount.getUsedLimit() - operation.getOperationValue());
+						AccountRepository.save(PersonalAccount);
+						operationRepository.save(operation);
+					}
+					else if(PersonalAccount.getBalance() == 0 &&
+							(PersonalAccount.getUsedLimit() < PersonalAccount.getApprovedLimit() && PersonalAccount.getUsedLimit() > 0))
+					{
+						PersonalAccount.setBalance(0.0);
+						PersonalAccount.setUsedLimit(PersonalAccount.getUsedLimit() - operation.getOperationValue());
+						AccountRepository.save(PersonalAccount);
+						operationRepository.save(operation);
+					}
+					else if(PersonalAccount.getBalance() == 0 && PersonalAccount.getUsedLimit() <= 0)
+					{
+						PersonalAccount.setBalance(PersonalAccount.getBalance() + operation.getOperationValue());
+						PersonalAccount.setUsedLimit(0.0);
+						AccountRepository.save(PersonalAccount);
+						operationRepository.save(operation);
+					}
+					else if(PersonalAccount.getBalance() > 0 && PersonalAccount.getUsedLimit() == 0)
+					{
+						PersonalAccount.setBalance(PersonalAccount.getBalance() + operation.getOperationValue());
+						PersonalAccount.setUsedLimit(0.0);
 						AccountRepository.save(PersonalAccount);
 						operationRepository.save(operation);
 					}
 				}
 				else
 				{
-					if((PersonalAccount.getBalance() - operation.getOperationValue()) >= 0)
+					PersonalAccount.setBalance(PersonalAccount.getBalance() + operation.getOperationValue());
+					AccountRepository.save(PersonalAccount);
+					operationRepository.save(operation);
+				}
+			}
+
+		}
+		else if(operation.getOperationType() == OperationType.WITHDRAW.ID)
+		{
+			CurrentAccount PersonalAccount = currentAccountService.findByAgencyAccountNumber(operation.getOperationAgency(),operation.getOperationAccountNumber());
+			if(PersonalAccount != null)
+			{
+				if(PersonalAccount.getBalance() == 0)
+				{
+					if(PersonalAccount.getApprovedLimit() > 0)
 					{
-						PersonalAccount.setBalance(PersonalAccount.getBalance() - operation.getOperationValue());
+						PersonalAccount.setUsedLimit(PersonalAccount.getUsedLimit()+operation.getOperationValue());
 						AccountRepository.save(PersonalAccount);
 						operationRepository.save(operation);
 					}
 				}
+				else
+				{
+					if(PersonalAccount.getApprovedLimit() > 0)
+					{
+						if(PersonalAccount.getApprovedLimit() >= (PersonalAccount.getBalance() - operation.getOperationValue()))
+						{
+							PersonalAccount.setBalance(PersonalAccount.getBalance() - operation.getOperationValue());
+							AccountRepository.save(PersonalAccount);
+							operationRepository.save(operation);
+						}
+					}
+					else
+					{
+						if((PersonalAccount.getBalance() - operation.getOperationValue()) >= 0)
+						{
+							PersonalAccount.setBalance(PersonalAccount.getBalance() - operation.getOperationValue());
+							AccountRepository.save(PersonalAccount);
+							operationRepository.save(operation);
+						}
+					}
+				}
 			}
+
 		}
 		else if(operation.getOperationType() == OperationType.TRANSFER.ID)
 		{

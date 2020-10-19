@@ -30,25 +30,4 @@ public class BalanceServiceImpl implements BalanceService {
     {
         return new Balance(accounts.getBalance());
     }
-
-
-
-
-//    @Override
-//    public Balance calcularSaldo(List<OperationDTO> operacoes) {
-//        Double valorTotal = 0.0;
-//        if (operacoes != null && !operacoes.isEmpty()) {
-//            Double depositos = operacoes.stream()
-//                    .filter(o -> OperationType.BANKDEPOSIT.equals(o.getTypeOperation()))
-//                    .mapToDouble(o -> o.getValueOperation())
-//                    .sum();
-//            Double saques = operacoes.stream()
-//                    .filter(o -> OperationType.WITHDRAW.equals(o.getTypeOperation()))
-//                    .mapToDouble(o -> o.getValueOperation())
-//                    .sum();
-//            valorTotal = depositos - saques;
-//        }
-//        return new Balance(valorTotal);
-//    }
-
 }

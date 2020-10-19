@@ -3,10 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="cdad5e45-37b7-4116-a950-f09bf3adacf2" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/beertech/fusion/controller/CurrentAccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/beertech/fusion/controller/CurrentAccountController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/beertech/fusion/controller/OperationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/beertech/fusion/controller/OperationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/beertech/fusion/controller/security/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/beertech/fusion/controller/security/AuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/beertech/fusion/util/ApiInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/beertech/fusion/util/SwaggerDoc.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/beertech/fusion/service/impl/BalanceServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/beertech/fusion/service/impl/BalanceServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/beertech/fusion/service/impl/OperationServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/beertech/fusion/service/impl/OperationServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,7 +83,7 @@
       <workItem from="1602949696272" duration="19000" />
       <workItem from="1602949835014" duration="48077000" />
       <workItem from="1603078541985" duration="23608000" />
-      <workItem from="1603131737748" duration="41000" />
+      <workItem from="1603131737748" duration="1460000" />
     </task>
     <servers />
   </component>
